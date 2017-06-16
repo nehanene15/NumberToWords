@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 /**
  * Created by NehaNene on 6/14/17.
+ * This program recursively prompts the user to enter a valid number from 0-9999.
+ * It outputs how one would say the number in person.
  */
 public class App {
 
@@ -15,7 +17,9 @@ public class App {
         Scanner scan = new Scanner(System.in);
         try {
             while (true) { //keeps prompting for new inputs
+                System.out.println("Enter a valid number from 0-9999:");
                 String input = scan.next();
+
                 int inputLength = input.length();
                 int inputNum = Integer.parseInt(input);
                 if (inputLength == 0 || inputLength > 4) {
@@ -43,7 +47,7 @@ public class App {
     }
 
     //method to get individual digits in an array from a String number
-    public static int[] getIndividualDigits(String in){
+    private static int[] getIndividualDigits(String in){
         String indig[]=in.split("");
         int[] intDigits=new int[indig.length];
         for(int i=0;i<indig.length;i++){
@@ -53,11 +57,11 @@ public class App {
         return intDigits;
     }
 
-    public static String singleDigit(int inputNum, String oneDigString[]){
+    private static String singleDigit(int inputNum, String oneDigString[]){
         return oneDigString[inputNum];
     }
 
-    public static String doubleDigit(String input, String oneDigString[],String dubDigString[],String tenTwenString[]){
+    private static String doubleDigit(String input, String oneDigString[],String dubDigString[],String tenTwenString[]){
         int[] dubDigits = getIndividualDigits(input);
 
         if(dubDigits[1]==0){ //second dig ends in 0
@@ -73,22 +77,28 @@ public class App {
         }
     }
 
-    public static String threeDig(String input, String oneDigString[],String dubDigString[],String tenTwenString[]){
+    private static String threeDig(String input, String oneDigString[],String dubDigString[],String tenTwenString[]){
         int[] threeDigits = getIndividualDigits(input);
         String dubDigits = input.substring(1);
         if(threeDigits[1]==0){ //if tens is 0
+            if(threeDigits[2]==0){
+                return singleDigit(threeDigits[0],oneDigString)+" hundred";
+            }
             return singleDigit(threeDigits[0],oneDigString)+" hundred and " + singleDigit(threeDigits[2],oneDigString);
         }
         return singleDigit(threeDigits[0],oneDigString)+" hundred and " + doubleDigit(dubDigits,oneDigString,dubDigString,tenTwenString);
 
     }
 
-    public static String fourDig(String input, String oneDigString[],String dubDigString[],String tenTwenString[]){
+    private static String fourDig(String input, String oneDigString[],String dubDigString[],String tenTwenString[]){
         int[] fourDigits = getIndividualDigits(input);
         String thrDigits = input.substring(1); //last three digits
         String dubDigits = input.substring(2); //last two digits
         //5467
         if(fourDigits[1]==0){ //if hundreds place is 0
+            if(fourDigits[3]==0){
+                return singleDigit(fourDigits[0],oneDigString)+" thousand";
+            }
             return singleDigit(fourDigits[0],oneDigString)+" thousand and "+singleDigit(fourDigits[3],oneDigString);
         }
         return singleDigit(fourDigits[0],oneDigString)+" thousand, " + threeDig(thrDigits,oneDigString,dubDigString,tenTwenString);
