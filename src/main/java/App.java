@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class App {
 
     public static void main(String args[]) throws Exception {
-       // String input= args[0];
 
         String oneDigString[]={"zero","one","two","three","four","five","six","seven","eight","nine"};
         String tenTwenString[]={"eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"};
